@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-roboto;
+  background-color: white;
+  background-image: radial-gradient(#444cf7 0.5px, transparent 0.5px),
+    radial-gradient(#444cf7 0.5px, white 0.5px);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    10px 10px;
+}
+
+.home_page_icon1 {
+  animation: animate 0.3s ease 0s a normal forwards;
+}
+
+@keyframes animate {
+  0% {
+    top: 48vh;
+    opacity: 0;
+  }
+  25% {
+    top: 30vh;
+    opacity: 0.3;
+  }
+  75% {
+    top: 20vh;
+    opacity: 0.8;
+  }
+  100% {
+    top: 0vh;
+    opacity: 1;
+  }
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.sidebarUtilsScrollBar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.sidebarUtilsScrollBar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebarUtilsScrollBar::-webkit-scrollbar-thumb {
+  background-color: #d2d1d1;
+}
