@@ -5,7 +5,6 @@ import { setEditedImg } from '@/redux/features/imgSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { useImgBgRemoveMutation } from '@/redux/services/imageApi'
 import { Dispatch, FC, SetStateAction, useEffect } from 'react'
-import ImgReducerTools from './utils/ImgReducerTools'
 import SelectTools from './utils/SelectTools'
 
 //----------------------------------------------
@@ -15,7 +14,7 @@ interface IProps {
 }
 const SidebarUtils: FC<IProps> = (props) => {
   const [sizeReduce, imgBgRemoveApi] = useImgBgRemoveMutation()
-  const { originalImg, editedImg } = useAppSelector((state) => state.imgSlice)
+  const { originalImg } = useAppSelector((state) => state.imgSlice)
 
   const dispatch = useAppDispatch()
 
@@ -40,11 +39,11 @@ const SidebarUtils: FC<IProps> = (props) => {
       <div className='w-full h-full flex flex-col justify-between space-y-3 pt-2'>
         <SelectTools {...props} />
 
-        <div className='w-full h-full max-h-[435px] overflow-y-auto sidebarUtilsScrollBar rounded-[6px] p-1'>
-          {props.toolType === 'sizeReducer' && (
+        {/* <div className='w-full h-full max-h-[435px] overflow-y-auto sidebarUtilsScrollBar rounded-[6px] p-1'> */}
+        {/* {props.toolType === 'sizeReducer' && (
             <ImgReducerTools originalImg={originalImg} editedImg={editedImg} />
-          )}
-        </div>
+          )} */}
+        {/* </div> */}
       </div>
 
       <div>

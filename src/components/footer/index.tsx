@@ -1,14 +1,15 @@
 import Link from 'next/link'
 import { FC } from 'react'
 import Button from '../button'
-import Logo from '../logo/Logo'
 
 const Footer: FC = () => {
   return (
     <footer className='bg-primary text-white w-full max-w-[1290px] mx-auto rounded-lg mb-4'>
       <div className='w-full max-w-screen-xl mx-auto p-4 md:px-8 md:pt-8 md:pb-4'>
         <div className='sm:flex sm:items-center sm:justify-between'>
-          <Logo color='white' />
+          <Link href='/'>
+            <h1 className='font-bold text-white text-2xl'>PicMin</h1>
+          </Link>
 
           <ul className='flex flex-wrap items-center mb-6 text-base font-medium text-white'>
             <li>

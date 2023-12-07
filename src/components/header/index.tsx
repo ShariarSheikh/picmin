@@ -12,9 +12,9 @@ const Header: FC = () => {
   return (
     <header className='z-[1110] bg-white w-full sticky top-0 border-b border-gray-200'>
       <div className='w-full max-w-[1290px] h-[80px] flex items-center justify-between mx-auto px-[10px] relative'>
-        <div>
+        <Link href='/'>
           <h1 className='font-bold text-primary text-2xl'>PicMin</h1>
-        </div>
+        </Link>
 
         <ul className='flex items-center space-x-3'>
           {toolsFeatures.map((tool) => (

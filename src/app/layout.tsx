@@ -5,7 +5,7 @@ import { ReduxWrapper } from './ReduxWrapper'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'LazyOwle Online Tools',
+  title: 'PicMin | Image Tools',
   description: '',
 }
 
