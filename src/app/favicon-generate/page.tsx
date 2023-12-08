@@ -72,7 +72,7 @@ export default function FaviconGenerate() {
           {favIconInputType === 'ImgType' && (
             <Suspense
               fallback={
-                <div className='text-gray-500 w-full h-[200px] flex items-center justify-center'>
+                <div className='text-gray-500 w-full min-h-[300px] flex items-center justify-center'>
                   <span>Loading...</span>
                 </div>
               }
@@ -84,7 +84,7 @@ export default function FaviconGenerate() {
           {favIconInputType === 'TextIcon' && (
             <Suspense
               fallback={
-                <div className='text-gray-500 w-full h-[200px] flex items-center justify-center'>
+                <div className='text-gray-500 w-full min-h-[300px] flex items-center justify-center'>
                   <span>Loading...</span>
                 </div>
               }

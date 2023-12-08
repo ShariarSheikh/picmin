@@ -34,7 +34,7 @@ const Footer: FC = () => {
           </ul>
         </div>
         <div className='flex items-center justify-center space-x-10 mt-6 lg:mt-8'>
-          <span className='block text-sm'>© 2024 lazyowle.vercel.app</span>
+          <span className='block text-sm'>© 2024 PicMin.vercel.app</span>
           <Link href='https://shariar.vercel.app' className='block text-sm'>
             Creator Shariar Sheikh
           </Link>
