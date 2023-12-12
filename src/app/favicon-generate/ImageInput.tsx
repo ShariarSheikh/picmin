@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import base64ToImageFile from '../utils/base64ToImageFile'
 import Preview from './Preview'
+import Result from './Result'
 
 //----------------------------------------------
 export interface CustomOptionsType {
@@ -24,12 +25,10 @@ export interface CustomOptionsType {
 
 export default function ImageInput() {
   const [generateFavicon, generateFaviconApi] = useGenerateFaviconMutation()
-
   const [imageInput, setImageInput] = useState<string>('')
-  const [customizeImg, setCustomizeImg] = useState<string>('')
   const [options, setOptions] = useState<CustomOptionsType>({
     isCustom: false,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ff333300',
     borderRadius: 0,
     imgInputRange: 0,
     demo: {
@@ -75,7 +74,6 @@ export default function ImageInput() {
 
     try {
       const dataUrl = await htmlToImage.toPng(favIconContainerRef.current)
-      setCustomizeImg(dataUrl)
 
       const formData = new FormData()
       const imgFile = base64ToImageFile(dataUrl)
@@ -172,10 +170,7 @@ export default function ImageInput() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const devFavIconPrevView =
     process.env.NODE_ENV === 'development' ? (
-      <>
-        {customizeImg && (
-          <Image src={customizeImg} width={555} height={555} alt='favicon' />
-        )}
+      <div className='w-0 h-0 overflow-hidden opacity-0'>
         <div
           className='w-[550px] h-[550px] flex items-center justify-center overflow-hidden'
           style={{
@@ -194,14 +189,14 @@ export default function ImageInput() {
             <Image fill className='' src={imageInput} alt='favicon' />
           </div>
         </div>
-      </>
+      </div>
     ) : null
 
   return (
     <div className='w-full min-h-[300px] py-3'>
-      {imageInput && (
+      {imageInput && !generateFaviconApi.isSuccess && (
         <div className='pt-10'>
-          {/* {devFavIconPrevView} */}
+          {devFavIconPrevView}
           <Preview
             inputImg={imageInput}
             favIconCanvas={
@@ -235,7 +230,7 @@ export default function ImageInput() {
             </Button>
           ) : (
             <Button
-              className='w-full h-10 mt-10 bg-primary text-white flex items-center justify-center'
+              className='w-full h-10 mt-10 bg-primary text-white active:scale-95 duration-150 flex items-center justify-center'
               onClick={generateFaviconHandler}
             >
               Generate Favicon
@@ -243,6 +238,14 @@ export default function ImageInput() {
           )}
         </div>
       )}
+
+      {generateFaviconApi.isSuccess && (
+        <Result
+          zipFileBase64={generateFaviconApi.data.data.faviconZip}
+          htmlLinks={generateFaviconApi.data.data.htmlLinks}
+        />
+      )}
+
       {!imageInput && (
         <div className='bg-gray-200 w-full min-h-[300px] flex justify-center items-center'>
           <ImageInputButton image='' setImage={setImageInput} />

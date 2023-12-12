@@ -22,7 +22,7 @@ export default function FaviconGenerate() {
     <section className='w-full'>
       <div className='bg-primary text-white w-full h-[300px]'>
         <div className='max-w-[1220px] w-full h-full mx-auto px-5 flex flex-col justify-center'>
-          <div className='w-full max-w-[60%] pr-2'>
+          <div className='w-full text-center pr-2'>
             <h1 className='text-[2vw] font-semibold leading-[5vw] tracking-wide text-[#faebd7] uppercase'>
               Welcome to the Favicon Generator page!
             </h1>

@@ -1,39 +1,59 @@
 /* eslint-disable react/no-unescaped-entities */
-import ex from '@/assets/Helix.png'
 import Button from '@/components/button'
-import Image from 'next/image'
-import { FC, useRef, useState } from 'react'
+import { FC, createElement, useEffect, useRef, useState } from 'react'
 import { FaCopy } from 'react-icons/fa'
+import { FaFileZipper } from 'react-icons/fa6'
+import base64ToZipFile from '../utils/base64ToZipFile'
 
-const Result = () => {
+//----------------------------------
+interface IProps {
+  htmlLinks: string
+  zipFileBase64: string
+}
+
+const Result: FC<IProps> = ({ htmlLinks, zipFileBase64 }) => {
+  const [zipFile, setZipFile] = useState<Blob>()
+
+  // download zip file
+  const downloadHandler = () => {
+    if (!zipFile)
+      return alert('Sorry! something is wrong. Please contact support.')
+
+    const url = URL.createObjectURL(zipFile)
+    const a = document.createElement('a')
+    document.body.appendChild(a)
+    a.style.display = 'none'
+    a.href = url
+    a.download = 'favicon.zip'
+    a.click()
+    window.URL.revokeObjectURL(url)
+    document.body.removeChild(a)
+  }
+
+  // convert base54 file to zip file
+  useEffect(() => {
+    if (!htmlLinks || !zipFileBase64) return
+    const convertToZip = base64ToZipFile(zipFileBase64)
+    setZipFile(convertToZip)
+  }, [htmlLinks, zipFileBase64])
   return (
     <div className='min-h-[600px] flex flex-col justify-between w-full py-5'>
       <div className='pt-5'>
-        <div className='pb-5 w-full min-h-[200px]'>
-          <div className='flex items-center justify-start'>
-            <div>
-              <h2>Original Image</h2>
-              <Image width={100} height={100} src={ex} alt='original picture' />
-            </div>
-
-            <div>
-              <h2>Original Image</h2>
-              <Image width={100} height={100} src={ex} alt='original picture' />
-            </div>
-          </div>
-        </div>
-
         <p className='text-[#6e6e78] mb-1 text-sm'>
           Copy and paste the following code into the &lt;head&gt; section of
           your HTML document to include various link and meta tags for favicon
           and touch icons:
         </p>
-
-        <CopyHtml />
+        <CopyHtml links={htmlLinks} />
       </div>
 
-      <div className='pt-[20px] w-full flex items-center justify-end'>
+      <div className='w-full flex items-center justify-center'>
+        <FaFileZipper className='w-[100px] h-[120px] text-gray-600' />
+      </div>
+
+      <div className='pt-[20px] w-full flex items-center justify-center'>
         <Button
+          onClick={downloadHandler}
           type='button'
           className='inline-flex items-center px-4 py-2 text-sm font-medium border rounded-lg focus:z-10 focus:ring-2 bg-gray-700 border-gray-600 text-white hover:text-white hover:bg-gray-600 focus:ring-blue-500 focus:text-white'
         >
@@ -56,7 +76,7 @@ const Result = () => {
 
 export default Result
 
-const CopyHtml: FC = () => {
+const CopyHtml: FC<{ links: string }> = ({ links }) => {
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
   const ref = useRef<HTMLPreElement>(null)
@@ -80,8 +100,15 @@ const CopyHtml: FC = () => {
     }
   }
 
+  const decodedHtml = createElement('div', {
+    dangerouslySetInnerHTML: { __html: links },
+    className:
+      'text-[#9f9fad] relative z-10 flex flex-col text-base space-y-[3px]',
+    ref: ref,
+  })
+
   return (
-    <div className='relative rounded-[10px] p-3 bg-[#262b31]'>
+    <div className='relative rounded-[10px] p-5 bg-[#262b31]'>
       <Button
         onClick={() => {
           isCopied ? {} : onCopyHandler()
@@ -91,55 +118,7 @@ const CopyHtml: FC = () => {
       >
         <FaCopy /> <span>{isCopied ? 'Copied!' : 'Copy'}</span>
       </Button>
-      <pre ref={ref} className='text-sm text-[#9f9fad] relative z-10'>
-        &lt;link <span className='text-blue-300'>rel</span>="
-        <span className='text-pink-400'>apple-touch-icon</span>"{' '}
-        <span className='text-yellow-300'>sizes</span>="
-        <span className='text-yellow-200'>180x180</span>"{' '}
-        <span className='text-yellow-300'>href</span>="
-        <span className='text-green-300'>/apple-touch-icon.png</span>"&gt;
-        <br />
-        &lt;link <span className='text-blue-300'>rel</span>="
-        <span className='text-yellow-300'>icon</span>"{' '}
-        <span className='text-yellow-200'>type</span>="
-        <span className='text-yellow-300'>image/png</span>"{' '}
-        <span className='text-yellow-300'>sizes</span>="
-        <span className='text-yellow-200'>32x32</span>"{' '}
-        <span className='text-yellow-300'>href</span>="
-        <span className='text-green-300'>/favicon-32x32.png</span>"&gt;
-        <br />
-        &lt;link <span className='text-blue-300'>rel</span>="
-        <span className='text-yellow-300'>icon</span>"{' '}
-        <span className='text-yellow-200'>type</span>="
-        <span className='text-yellow-300'>image/png</span>"{' '}
-        <span className='text-yellow-300'>sizes</span>="
-        <span className='text-yellow-200'>16x16</span>"{' '}
-        <span className='text-yellow-300'>href</span>="
-        <span className='text-green-300'>/favicon-16x16.png</span>"&gt;
-        <br />
-        &lt;link <span className='text-blue-300'>rel</span>="
-        <span className='text-yellow-300'>manifest</span>"{' '}
-        <span className='text-yellow-300'>href</span>="
-        <span className='text-green-300'>/site.webmanifest</span>"&gt;
-        <br />
-        &lt;link <span className='text-blue-300'>rel</span>="
-        <span className='text-yellow-300'>mask-icon</span>"{' '}
-        <span className='text-yellow-300'>href</span>="
-        <span className='text-green-300'>/safari-pinned-tab.svg</span>"{' '}
-        <span className='text-yellow-300'>color</span>="
-        <span className='text-green-300'>#5bbad5</span>"&gt;
-        <br />
-        &lt;meta <span className='text-yellow-300'>name</span>="
-        <span className='text-yellow-300'>msapplication-TileColor</span>"{' '}
-        <span className='text-yellow-300'>content</span>="
-        <span className='text-green-300'>#da532c</span>"&gt;
-        <br />
-        &lt;meta <span className='text-yellow-300'>name</span>="
-        <span className='text-yellow-300'>theme-color</span>"{' '}
-        <span className='text-yellow-300'>content</span>="
-        <span className='text-green-300'>#ffffff</span>"&gt;
-        <br />
-      </pre>
+      {decodedHtml}
     </div>
   )
 }
