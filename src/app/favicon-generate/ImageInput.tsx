@@ -167,7 +167,6 @@ export default function ImageInput() {
     </div>
   )
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const devFavIconPrevView =
     process.env.NODE_ENV === 'development' ? (
       <div className='w-0 h-0 overflow-hidden opacity-0'>
