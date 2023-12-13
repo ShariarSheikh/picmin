@@ -167,29 +167,28 @@ export default function ImageInput() {
     </div>
   )
 
-  const devFavIconPrevView =
-    process.env.NODE_ENV === 'development' ? (
-      <div className='w-0 h-0 overflow-hidden opacity-0'>
+  const devFavIconPrevView = (
+    <div className='w-0 h-0 overflow-hidden opacity-0'>
+      <div
+        className='w-[550px] h-[550px] flex items-center justify-center overflow-hidden'
+        style={{
+          borderRadius: `${options.borderRadius}%`,
+          background: options.backgroundColor,
+        }}
+        ref={favIconContainerRef}
+      >
         <div
-          className='w-[550px] h-[550px] flex items-center justify-center overflow-hidden'
           style={{
-            borderRadius: `${options.borderRadius}%`,
-            background: options.backgroundColor,
+            width: options.real.imageSize,
+            height: options.real.imageSize,
           }}
-          ref={favIconContainerRef}
+          className='relative'
         >
-          <div
-            style={{
-              width: options.real.imageSize,
-              height: options.real.imageSize,
-            }}
-            className='relative'
-          >
-            <Image fill className='' src={imageInput} alt='favicon' />
-          </div>
+          <Image fill className='' src={imageInput} alt='favicon' />
         </div>
       </div>
-    ) : null
+    </div>
+  )
 
   return (
     <div className='w-full min-h-[300px] py-3'>
