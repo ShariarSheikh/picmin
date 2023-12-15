@@ -19,13 +19,15 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas }) => {
         {/* favicon website name close icon container */}
         <div className='ml-[8px] w-[304px] min-w-[304px] h-[48px] text-[#f8f8ff] bg-[#2F3140] px-[14px] py-[8px] border-t-2 border-r border-l border-2 border-[#626262] border-b-0 rounded-t-[10px] flex justify-between items-center'>
           <div className='flex items-center'>
-            <Image
+            {/* <Image
               width={26}
               height={18}
               className='max-h-[20px]'
               src={inputImg}
               alt='favicon'
-            />
+            /> */}
+            <div className=''>{favIconCanvas}</div>
+
             <span className='ml-[10px] w-full max-w-[197px] line-clamp-1'>
               PicMin | Image Tools
             </span>

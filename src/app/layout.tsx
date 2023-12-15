@@ -1,7 +1,7 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import type { Metadata } from 'next'
-import { ReduxWrapper } from './ReduxWrapper'
+import Provider from './Provider'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -51,11 +51,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ReduxWrapper>
+        <Provider>
           <Header />
           {children}
           <Footer />
-        </ReduxWrapper>
+        </Provider>
       </body>
     </html>
   )
