@@ -1,12 +1,14 @@
+'use client'
+
+import base64ToImageFile from '@/app/utils/base64ToImageFile'
 import ImageInputButton from '@/components/ImageInputButton'
 import Button from '@/components/button'
 import { useGenerateFaviconMutation } from '@/redux/services/imageApi'
 import * as htmlToImage from 'html-to-image'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
-import base64ToImageFile from '../utils/base64ToImageFile'
-import Preview from './Preview'
-import Result from './Result'
+import Preview from '../Preview'
+import Result from '../Result'
 
 //----------------------------------------------
 export interface CustomOptionsType {
@@ -23,7 +25,7 @@ export interface CustomOptionsType {
 }
 //----------------------------------------------
 
-export default function ImageInput() {
+export default function FromImage() {
   const [generateFavicon, generateFaviconApi] = useGenerateFaviconMutation()
   const [imageInput, setImageInput] = useState<string>('')
   const [options, setOptions] = useState<CustomOptionsType>({
@@ -211,42 +213,104 @@ export default function ImageInput() {
   )
 
   return (
-    <div className='w-full min-h-[300px] py-3'>
-      {imageInput && !generateFaviconApi.isSuccess && (
-        <div className='pt-10'>
-          {devFavIconPrevView}
-          <Preview inputImg={imageInput} favIconCanvas={faviconCanvas} />
-          {customizeOptions}
-          {generateFaviconApi.isLoading ? (
-            <Button
-              className='w-full h-10 mt-10 bg-[#E5ECF9] text-slate-600 flex items-center justify-center'
-              disabled
-            >
-              Generating Favicon...
-            </Button>
-          ) : (
-            <Button
-              className='w-full h-10 mt-10 bg-primary text-white active:scale-95 duration-150 flex items-center justify-center'
-              onClick={generateFaviconHandler}
-            >
-              Generate Favicon
-            </Button>
-          )}
-        </div>
-      )}
+    <section className='w-full'>
+      <div className='w-full bg-white max-w-[1200px] mx-auto min-h-[300px] pt-10 py-3 mb-12'>
+        {imageInput && !generateFaviconApi.isSuccess && (
+          <div className='pt-10'>
+            {devFavIconPrevView}
+            <Preview inputImg={imageInput} favIconCanvas={faviconCanvas} />
+            {customizeOptions}
+            {generateFaviconApi.isLoading ? (
+              <Button
+                className='w-full h-10 mt-10 bg-[#E5ECF9] text-slate-600 flex items-center justify-center'
+                disabled
+              >
+                Generating Favicon...
+              </Button>
+            ) : (
+              <Button
+                className='w-full h-10 mt-10 bg-primary text-white active:scale-95 duration-150 flex items-center justify-center'
+                onClick={generateFaviconHandler}
+              >
+                Generate Favicon
+              </Button>
+            )}
+          </div>
+        )}
 
-      {generateFaviconApi.isSuccess && (
-        <Result
-          zipFileBase64={generateFaviconApi.data.data.faviconZip}
-          htmlLinks={generateFaviconApi.data.data.htmlLinks}
-        />
-      )}
+        {generateFaviconApi.isSuccess && (
+          <Result
+            zipFileBase64={generateFaviconApi.data.data.faviconZip}
+            htmlLinks={generateFaviconApi.data.data.htmlLinks}
+          />
+        )}
 
-      {!imageInput && (
-        <div className='bg-gray-200 w-full min-h-[300px] flex justify-center items-center'>
-          <ImageInputButton image='' setImage={setImageInput} />
+        {!imageInput && (
+          <div className='bg-gray-200 w-full min-h-[300px] flex justify-center items-center'>
+            <ImageInputButton image='' setImage={setImageInput} />
+          </div>
+        )}
+      </div>
+
+      <div className='w-full max-w-[1200px] mx-auto bg-white p-6 rounded-md shadow-md mb-12'>
+        <h1 className='text-2xl font-bold mb-4'>Favicon Generator Features</h1>
+
+        <ul className='list-disc pl-10 mb-4'>
+          <li className='mb-4'>
+            <h2 className='text-xl font-semibold mb-[3px] text-gray-600'>
+              Text Favicon
+            </h2>
+            <p className='text-gray-600'>
+              Easily generate a favicon with custom text, choosing from various
+              fonts and styles.
+            </p>
+          </li>
+
+          <li className='mb-4'>
+            <h2 className='text-xl font-semibold mb-[3px] text-gray-600'>
+              Image Favicon
+            </h2>
+            <p className='text-gray-600'>
+              Upload your own image to create a personalized favicon for your
+              website.
+            </p>
+          </li>
+
+          <li className='mb-4'>
+            <h2 className='text-xl font-semibold mb-[3px] text-gray-600'>
+              Preview
+            </h2>
+            <p className='text-gray-600'>
+              Visualize your favicon in real-time before downloading it.
+            </p>
+          </li>
+
+          <li className='mb-4'>
+            <h2 className='text-xl font-semibold mb-[3px] text-gray-600'>
+              Customization
+            </h2>
+            <p className='text-gray-600'>
+              Adjust the size, color, and other parameters to match your
+              website&apos;s aesthetic.
+            </p>
+          </li>
+
+          <li className='mb-4'>
+            <h2 className='text-xl font-semibold mb-[3px] text-gray-600'>
+              Download Options
+            </h2>
+            <p className='text-gray-600'>
+              Download the generated favicon in various formats for
+              compatibility with different browsers.
+            </p>
+          </li>
+        </ul>
+
+        <div className='px-2 rounded-sm h-10 bg-primary bg-opacity-40 text-black inline py-2'>
+          Create a distinctive and eye-catching favicon to enhance your
+          website&apos;s identity!
         </div>
-      )}
-    </div>
+      </div>
+    </section>
   )
 }

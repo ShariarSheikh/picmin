@@ -1,12 +1,11 @@
 'use client'
 
 import Button from '@/components/button'
-import dynamic from 'next/dynamic'
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
 import { Element, Link } from 'react-scroll'
 
-const ImageInput = dynamic(() => import('./ImageInput'))
-const TextInput = dynamic(() => import('./TextInput'))
+// const ImageInput = dynamic(() => import('./ImageInput'))
+// const TextInput = dynamic(() => import('./from-text/page'))
 
 //----------------------------------------------------------------
 type FavIconInputType = 'ImgType' | 'TextIcon'
@@ -69,7 +68,7 @@ export default function FaviconGenerate() {
             </Button>
           </div>
 
-          {favIconInputType === 'ImgType' && (
+          {/* {favIconInputType === 'ImgType' && (
             <Suspense
               fallback={
                 <div className='text-gray-500 w-full min-h-[300px] flex items-center justify-center'>
@@ -79,8 +78,8 @@ export default function FaviconGenerate() {
             >
               <ImageInput />
             </Suspense>
-          )}
-
+          )} */}
+          {/* 
           {favIconInputType === 'TextIcon' && (
             <Suspense
               fallback={
@@ -91,7 +90,7 @@ export default function FaviconGenerate() {
             >
               <TextInput />
             </Suspense>
-          )}
+          )} */}
         </div>
 
         <Element name='details' className='min-h-[500px] w-full'>

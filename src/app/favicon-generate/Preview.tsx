@@ -19,15 +19,7 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas }) => {
         {/* favicon website name close icon container */}
         <div className='ml-[8px] w-[304px] min-w-[304px] h-[48px] text-[#f8f8ff] bg-[#2F3140] px-[14px] py-[8px] border-t-2 border-r border-l border-2 border-[#626262] border-b-0 rounded-t-[10px] flex justify-between items-center'>
           <div className='flex items-center'>
-            {/* <Image
-              width={26}
-              height={18}
-              className='max-h-[20px]'
-              src={inputImg}
-              alt='favicon'
-            /> */}
             <div className=''>{favIconCanvas}</div>
-
             <span className='ml-[10px] w-full max-w-[197px] line-clamp-1'>
               PicMin | Image Tools
             </span>
@@ -73,15 +65,7 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas }) => {
         <p className='text-sm text-slate-600'>Google Result Page View</p>
         <div className='mt-1 bg-white min-h-[108px] min-w-[420px] max-w-[420px] p-8 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]'>
           <div className='flex items-center space-x-4 h-[30px]'>
-            {/* <Image
-              width={26}
-              height={26}
-              className='w-[26px] max-w-[26px] h-[26px] max-h-[26px]'
-              src={inputImg}
-              alt='favicon'
-            /> */}
             {favIconCanvas}
-
             <div>
               <h2 className='font-semibold text-[#1967d2]'>
                 PicMin | Image Tools
