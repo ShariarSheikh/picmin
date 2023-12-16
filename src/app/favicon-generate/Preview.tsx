@@ -44,42 +44,45 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas }) => {
   )
 
   return (
-    <div className='mb-16 flex items-start justify-around space-x-6'>
-      <div>
-        <p className='text-sm text-slate-600'>Uploaded Image</p>
-        <Image
-          src={inputImg}
-          alt='Uploaded'
-          className='shadow-md w-[110px] h-[100px]'
-          width={110}
-          height={100}
-        />
-      </div>
+    <div>
+      <h1 className='mb-4 text-lg text-gray-600'>Preview</h1>
+      <div className='mb-16 py-8 flex items-start justify-center space-x-8 border border-gray-200 rounded-[6px]'>
+        <div>
+          <p className='text-sm text-slate-600'>Uploaded Image</p>
+          <Image
+            src={inputImg}
+            alt='Uploaded'
+            className='shadow-md w-[110px] h-[100px]'
+            width={110}
+            height={100}
+          />
+        </div>
 
-      <div>
-        <p className='text-sm text-slate-600'>Browser Tab View</p>
-        {favIconTabViewContainer}
-      </div>
+        <div>
+          <p className='text-sm text-slate-600'>Browser Tab View</p>
+          {favIconTabViewContainer}
+        </div>
 
-      <div>
-        <p className='text-sm text-slate-600'>Google Result Page View</p>
-        <div className='mt-1 bg-white min-h-[108px] min-w-[420px] max-w-[420px] p-8 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]'>
-          <div className='flex items-center space-x-4 h-[30px]'>
-            {favIconCanvas}
-            <div>
-              <h2 className='font-semibold text-[#1967d2]'>
-                PicMin | Image Tools
-              </h2>
-              <p className='text-[13px] text-slate-600'>
-                https://picmin.vercel.app/favicon-generate
-              </p>
+        <div>
+          <p className='text-sm text-slate-600'>Google Result Page View</p>
+          <div className='mt-1 bg-white min-h-[108px] min-w-[420px] max-w-[420px] p-8 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]'>
+            <div className='flex items-center space-x-4 h-[30px]'>
+              {favIconCanvas}
+              <div>
+                <h2 className='font-semibold text-[#1967d2]'>
+                  PicMin | Image Tools
+                </h2>
+                <p className='text-[13px] text-slate-600'>
+                  https://picmin.vercel.app/favicon-generate
+                </p>
+              </div>
             </div>
-          </div>
 
-          <p className='mt-3 text-[15px] text-slate-600'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet,
-            explicabo?Lorem ipsum dolor sit amet.
-          </p>
+            <p className='mt-3 text-[15px] text-slate-600'>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet,
+              explicabo?Lorem ipsum dolor sit amet.
+            </p>
+          </div>
         </div>
       </div>
     </div>

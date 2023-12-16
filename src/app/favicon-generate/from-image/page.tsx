@@ -4,9 +4,11 @@ import base64ToImageFile from '@/app/utils/base64ToImageFile'
 import ImageInputButton from '@/components/ImageInputButton'
 import Button from '@/components/button'
 import { useGenerateFaviconMutation } from '@/redux/services/imageApi'
+import { Slider, Switch, cn } from '@nextui-org/react'
 import * as htmlToImage from 'html-to-image'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
+import { TwitterPicker } from 'react-color'
 import Preview from '../Preview'
 import Result from '../Result'
 
@@ -90,82 +92,68 @@ export default function FromImage() {
   }
 
   const customizeOptions = (
-    <div className='w-full max-w-[40%]'>
-      <h3 className='text-lg font-semibold mb-2'>Customize Options</h3>
-      <label className='flex items-center mb-2'>
-        <input
-          type='checkbox'
-          checked={!options.isCustom}
-          onChange={() => handleOptionChange('isCustom', false)}
-          className='mr-2'
-        />
-        <span>Use Original Image</span>
-      </label>
-
-      <label className='flex items-center mb-2'>
-        <input
-          type='checkbox'
-          checked={options.isCustom}
-          onChange={() => handleOptionChange('isCustom', true)}
-          className='mr-2'
-        />
-        <span>Customize</span>
-      </label>
-
-      <label
-        className={`flex items-center mb-2 ${
-          !options.isCustom ? 'text-gray-500' : ''
-        }`}
+    <div className='w-full'>
+      <Switch
+        checked={options.isCustom}
+        onClick={() => handleOptionChange('isCustom', !options.isCustom)}
+        classNames={{
+          base: cn(
+            'inline-flex flex-row-reverse w-full max-w-md bg-content1 hover:bg-content2 items-center',
+            'justify-between cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent',
+            'data-[selected=true]:border-primary',
+          ),
+          wrapper: 'p-0 h-4 overflow-visible',
+          thumb: cn(
+            'w-6 h-6 border-2 shadow-lg',
+            'group-data-[hover=true]:border-primary',
+            //selected
+            'group-data-[selected=true]:ml-6',
+            // pressed
+            'group-data-[pressed=true]:w-7',
+            'group-data-[selected]:group-data-[pressed]:ml-4',
+          ),
+        }}
       >
-        Border Radius:
-        <input
-          type='range'
-          min='0'
-          max='100'
-          value={options.borderRadius}
-          disabled={!options.isCustom}
-          onChange={(e) =>
-            handleOptionChange('borderRadius', parseInt(e.target.value, 10))
-          }
-          className={`ml-2`}
-        />
-      </label>
+        <div className='flex flex-col gap-1'>
+          <p className='text-medium'>Enable Customize Options</p>
+          <p className='text-tiny text-default-400'>
+            After enabling this feature, you will be able to customize your
+            image to suit your preferences.
+          </p>
+        </div>
+      </Switch>
 
-      <label
-        className={`flex items-center mb-2 ${
-          !options.isCustom ? 'text-gray-500' : ''
-        }`}
-      >
-        Image Size:
-        <input
-          type='range'
-          min='0'
-          max='100'
-          disabled={!options.isCustom}
-          value={options.imgInputRange}
-          onChange={(e) =>
-            handleOptionChange('imageSize', parseInt(e.target.value, 10))
-          }
-          className={`ml-2`}
+      <div className='grid grid-cols-3 items-center gap-5'>
+        <Slider
+          label='Border Radius'
+          size='sm'
+          minValue={0}
+          maxValue={100}
+          isDisabled={!options.isCustom}
+          getValue={(donuts) => `${donuts} of 100 %`}
+          onChange={(value) => handleOptionChange('borderRadius', value)}
+          className='w-full text-slate-500'
         />
-      </label>
 
-      <label
-        className={`flex items-center mb-2 ${
-          !options.isCustom ? 'text-gray-500' : ''
-        }`}
-      >
-        Background Color:
-        <input
-          type='color'
-          value={options.backgroundColor}
-          disabled={!options.isCustom}
-          onChange={(e) =>
-            handleOptionChange('backgroundColor', e.target.value)
-          }
-          className={`ml-2`}
+        <Slider
+          label='Image Size'
+          size='sm'
+          minValue={0}
+          maxValue={100}
+          isDisabled={!options.isCustom}
+          getValue={(donuts) => `${donuts} of 100 %`}
+          onChange={(value) => handleOptionChange('imageSize', value)}
+          className='w-full text-slate-500'
         />
-      </label>
+
+        <div>
+          <h1 className='mb-2 text-slate-500'>Background Color</h1>
+          <TwitterPicker
+            color={options.backgroundColor}
+            onChange={({ hex }) => handleOptionChange('backgroundColor', hex)}
+          />
+        </div>
+      </div>
     </div>
   )
 
@@ -213,7 +201,7 @@ export default function FromImage() {
   )
 
   return (
-    <section className='w-full'>
+    <section className='w-full bg-white pb-10'>
       <div className='w-full bg-white max-w-[1200px] mx-auto min-h-[300px] pt-10 py-3 mb-12'>
         {imageInput && !generateFaviconApi.isSuccess && (
           <div className='pt-10'>

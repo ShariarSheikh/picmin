@@ -109,5 +109,5 @@ export default function FromText() {
     </div>
   )
 
-  return <div className='w-full min-h-[300px] py-3'>{editContent}</div>
+  return <div className='w-full bg-white min-h-[300px] py-3'>{editContent}</div>
 }
