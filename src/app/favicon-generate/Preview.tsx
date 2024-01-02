@@ -8,9 +8,10 @@ import { TbReload } from 'react-icons/tb'
 interface IProps {
   inputImg: string
   favIconCanvas: ReactElement
+  mode: 'text' | 'image'
 }
 
-const Preview: FC<IProps> = ({ inputImg, favIconCanvas }) => {
+const Preview: FC<IProps> = ({ inputImg, favIconCanvas, mode }) => {
   const favIconTabViewContainer = (
     <div className='mt-1 bg-[#1E1E2A] h-[108px] w-[380px] max-w-[380px] pt-[8px] rounded-t-[4px] overflow-hidden'>
       <div className='flex items-center h-[48px] bg-inherit relative'>
@@ -46,17 +47,19 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas }) => {
   return (
     <div>
       <h1 className='mb-4 text-lg text-gray-600'>Preview</h1>
-      <div className='mb-16 py-8 flex items-start justify-center space-x-8 border border-gray-200 rounded-[6px]'>
-        <div>
-          <p className='text-sm text-slate-600'>Uploaded Image</p>
-          <Image
-            src={inputImg}
-            alt='Uploaded'
-            className='shadow-md w-[110px] h-[100px]'
-            width={110}
-            height={100}
-          />
-        </div>
+      <div className='py-8 flex items-start justify-center space-x-8 border border-gray-200 rounded-[6px]'>
+        {mode === 'image' && (
+          <div>
+            <p className='text-sm text-slate-600'>Uploaded Image</p>
+            <Image
+              src={inputImg}
+              alt='Uploaded'
+              className='shadow-md w-[110px] h-[100px]'
+              width={110}
+              height={100}
+            />
+          </div>
+        )}
 
         <div>
           <p className='text-sm text-slate-600'>Browser Tab View</p>

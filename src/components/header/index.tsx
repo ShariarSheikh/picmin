@@ -12,7 +12,7 @@ import {
   NavbarItem,
 } from '@nextui-org/react'
 import Link from 'next/link'
-import { useSelectedLayoutSegment } from 'next/navigation'
+// import { useSelectedLayoutSegment } from 'next/navigation'
 import { FC } from 'react'
 import { CiImageOn } from 'react-icons/ci'
 import { IoText } from 'react-icons/io5'
@@ -20,7 +20,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 
 const Header: FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const segment = useSelectedLayoutSegment()
+  // const segment = useSelectedLayoutSegment()
 
   return (
     <Navbar
@@ -101,9 +101,15 @@ const Header: FC = () => {
       </NavbarContent>
 
       <NavbarContent className='items-center' justify='end'>
-        <Button className='text-white bg-[#ffd700] px-3 py-1 border border-primary rounded-sm hover:bg-white hover:text-primary duration-150'>
+        <NavbarItem>
+          <Button color='primary' variant='flat'>
+            Tutorial
+          </Button>
+        </NavbarItem>
+
+        {/* <Button className='text-black bg-[#ffd700] px-3 py-1 border border-primary rounded-sm hover:bg-white hover:text-primary duration-150'>
           Tutorial
-        </Button>
+        </Button> */}
       </NavbarContent>
     </Navbar>
   )

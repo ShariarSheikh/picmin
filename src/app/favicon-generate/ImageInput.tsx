@@ -215,7 +215,11 @@ export default function ImageInput() {
       {imageInput && !generateFaviconApi.isSuccess && (
         <div className='pt-10'>
           {devFavIconPrevView}
-          <Preview inputImg={imageInput} favIconCanvas={faviconCanvas} />
+          <Preview
+            mode='image'
+            inputImg={imageInput}
+            favIconCanvas={faviconCanvas}
+          />
           {customizeOptions}
           {generateFaviconApi.isLoading ? (
             <Button
