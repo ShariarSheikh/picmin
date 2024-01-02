@@ -1,5 +1,8 @@
 'use client'
 
+import base64ToImageFile from '@/app/utils/base64ToImageFile'
+import Button from '@/components/button'
+import { useGenerateFaviconMutation } from '@/redux/services/imageApi'
 import {
   Autocomplete,
   AutocompleteItem,
@@ -14,6 +17,7 @@ import { FaFont } from 'react-icons/fa'
 import { GiWeightLiftingUp } from 'react-icons/gi'
 import { RxFontFamily } from 'react-icons/rx'
 import Preview from '../Preview'
+import Result from '../Result'
 import useFontsList from './useFontsList'
 import { OptionsState, initialOptions } from './utils'
 
@@ -22,6 +26,8 @@ import { OptionsState, initialOptions } from './utils'
 //------------------------------------------
 
 export default function FromText() {
+  const [generateFavicon, generateFaviconApi] = useGenerateFaviconMutation()
+
   const { listedFonts, isLoading, onLoadMore } = useFontsList()
   const [options, setOptions] = useState<OptionsState>(initialOptions)
   const [imgData, setImgData] = useState<string>('')
@@ -100,6 +106,12 @@ export default function FromText() {
     document.head.appendChild(styleElement)
   }
 
+  const getFontStyle = () => ({
+    fontFamily: options.fontFamily,
+    fontStyle: options.selectedFontVariant.style,
+    fontWeight: options.selectedFontVariant.weight,
+  })
+
   const editContent = (
     <div className='w-full flex items-center justify-center py-12'>
       {/* <!-- Utils Component --> */}
@@ -125,9 +137,7 @@ export default function FromText() {
           <div
             style={{
               fontSize: 100,
-              fontFamily: options.fontFamily,
-              fontStyle: options.selectedFontVariant.style,
-              fontWeight: options.selectedFontVariant.weight,
+              ...getFontStyle(),
             }}
             className='w-[300px] bg-gray-200 flex items-center justify-center overflow-hidden'
           >
@@ -237,6 +247,7 @@ export default function FromText() {
           background: options.backgroundColor,
           fontSize: options.real.fontSize,
           color: options.fontColor,
+          ...getFontStyle(),
         }}
         ref={favIconContainerRef}
       >
@@ -253,6 +264,7 @@ export default function FromText() {
         background: options.backgroundColor,
         fontSize: options.demo.fontSize,
         color: options.fontColor,
+        ...getFontStyle(),
       }}
     >
       <span>{options.font}</span>
@@ -269,12 +281,61 @@ export default function FromText() {
     generateHtmlToImgData()
   }, [options])
 
+  const generateFaviconHandler = async () => {
+    if (!favIconContainerRef.current) return
+
+    try {
+      const dataUrl = await htmlToImage.toPng(favIconContainerRef.current)
+
+      const formData = new FormData()
+      const imgFile = base64ToImageFile(dataUrl)
+      formData.append('imgData', imgFile)
+
+      await generateFavicon({
+        imgData: formData,
+      })
+    } catch (error) {
+      alert('something is wrong. please contact support!')
+    }
+  }
+
   return (
     <div className='w-full bg-white min-h-[300px] py-3'>
       <div className='w-full bg-white max-w-[870px] mx-auto min-h-[300px] pt-10 py-3 mb-12'>
-        {devFavIconPrevView}
-        <Preview mode='text' inputImg={imgData} favIconCanvas={faviconCanvas} />
-        {editContent}
+        {!generateFaviconApi.isSuccess && (
+          <>
+            {devFavIconPrevView}
+            <Preview
+              mode='text'
+              inputImg={imgData}
+              favIconCanvas={faviconCanvas}
+            />
+            {editContent}
+          </>
+        )}
+
+        {generateFaviconApi.isLoading ? (
+          <Button
+            className='w-full h-10 mt-10 bg-[#E5ECF9] text-slate-600 flex items-center justify-center'
+            disabled
+          >
+            Generating Favicon...
+          </Button>
+        ) : (
+          <Button
+            className='w-full h-10 mt-10 bg-primary text-white active:scale-95 duration-150 flex items-center justify-center'
+            onClick={generateFaviconHandler}
+          >
+            Generate Favicon
+          </Button>
+        )}
+
+        {generateFaviconApi.isSuccess && (
+          <Result
+            zipFileBase64={generateFaviconApi.data.data.faviconZip}
+            htmlLinks={generateFaviconApi.data.data.htmlLinks}
+          />
+        )}
       </div>
     </div>
   )
