@@ -16,6 +16,7 @@ import { TwitterPicker } from 'react-color'
 import { FaFont } from 'react-icons/fa'
 import { GiWeightLiftingUp } from 'react-icons/gi'
 import { RxFontFamily } from 'react-icons/rx'
+import Features from '../Features'
 import Preview from '../Preview'
 import Result from '../Result'
 import useFontsList from './useFontsList'
@@ -30,7 +31,6 @@ export default function FromText() {
 
   const { listedFonts, isLoading, onLoadMore } = useFontsList()
   const [options, setOptions] = useState<OptionsState>(initialOptions)
-  const [imgData, setImgData] = useState<string>('')
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const favIconContainerRef = useRef<HTMLDivElement>(null)
@@ -117,6 +117,11 @@ export default function FromText() {
       document.head.appendChild(styleElement)
     }
   }
+
+  useEffect(() => {
+    if (!options.selectedFontVariant.url) return
+    addFontFace(options.fontFamily, options.selectedFontVariant.url)
+  }, [])
 
   const getFontStyle = () => ({
     fontFamily: options.fontFamily,
@@ -282,16 +287,6 @@ export default function FromText() {
       <span>{options.font}</span>
     </div>
   )
-  const generateHtmlToImgData = async () => {
-    if (!favIconContainerRef.current) return
-    const dataUrl = await htmlToImage.toPng(favIconContainerRef.current)
-    // const imgFile = base64ToImageFile(dataUrl)
-    setImgData(dataUrl)
-  }
-
-  useEffect(() => {
-    generateHtmlToImgData()
-  }, [options])
 
   const generateFaviconHandler = async () => {
     if (!favIconContainerRef.current) return
@@ -317,38 +312,41 @@ export default function FromText() {
         {!generateFaviconApi.isSuccess && (
           <>
             {devFavIconPrevView}
-            <Preview
-              mode='text'
-              inputImg={imgData}
-              favIconCanvas={faviconCanvas}
-            />
+            <Preview favIconCanvas={faviconCanvas} />
             {editContent}
           </>
         )}
 
-        {generateFaviconApi.isLoading ? (
-          <Button
-            className='w-full h-10 mt-10 bg-[#E5ECF9] text-slate-600 flex items-center justify-center'
-            disabled
-          >
-            Generating Favicon...
-          </Button>
-        ) : (
-          <Button
-            className='w-full h-10 mt-10 bg-primary text-white active:scale-95 duration-150 flex items-center justify-center'
-            onClick={generateFaviconHandler}
-          >
-            Generate Favicon
-          </Button>
+        {!generateFaviconApi.isSuccess && (
+          <>
+            {generateFaviconApi.isLoading && (
+              <Button
+                className='w-full h-10 mt-10 bg-[#E5ECF9] text-slate-600 flex items-center justify-center'
+                disabled
+              >
+                Generating Favicon...
+              </Button>
+            )}
+
+            {!generateFaviconApi.isLoading && (
+              <Button
+                className='w-full h-10 mt-10 bg-primary text-white active:scale-95 duration-150 flex items-center justify-center'
+                onClick={generateFaviconHandler}
+              >
+                Generate Favicon
+              </Button>
+            )}
+          </>
         )}
 
         {generateFaviconApi.isSuccess && (
           <Result
             zipFileBase64={generateFaviconApi.data.data.faviconZip}
-            htmlLinks={generateFaviconApi.data.data.htmlLinks}
+            htmlLinks={generateFaviconApi.data.data.htmlLinksString}
           />
         )}
       </div>
+      <Features />
     </div>
   )
 }

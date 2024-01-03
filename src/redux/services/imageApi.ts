@@ -3,11 +3,11 @@ import { apiServices } from './api'
 export const imageApi = apiServices.injectEndpoints({
   endpoints: (builders) => ({
     generateFavicon: builders.mutation<
-      { data: { faviconZip: string; htmlLinks: string } },
+      { data: { faviconZip: string; htmlLinksString: string } },
       { imgData: FormData }
     >({
       query: (credential) => ({
-        url: '/api/image/generate_favicon',
+        url: '/api/favicon/create',
         method: 'POST',
         body: credential.imgData,
       }),

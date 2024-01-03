@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { FC, ReactElement } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { HiMiniLockClosed } from 'react-icons/hi2'
@@ -6,12 +5,10 @@ import { IoArrowBack, IoArrowForward, IoCloseSharp } from 'react-icons/io5'
 import { TbReload } from 'react-icons/tb'
 
 interface IProps {
-  inputImg: string
   favIconCanvas: ReactElement
-  mode: 'text' | 'image'
 }
 
-const Preview: FC<IProps> = ({ inputImg, favIconCanvas, mode }) => {
+const Preview: FC<IProps> = ({ favIconCanvas }) => {
   const favIconTabViewContainer = (
     <div className='mt-1 bg-[#1E1E2A] shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] h-[151px] w-[380px] max-w-[380px] pt-[8px] rounded-t-[4px] overflow-hidden'>
       <div className='flex items-center h-[48px] bg-inherit relative'>
@@ -48,19 +45,6 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas, mode }) => {
     <div className='bg-gray-200 rounded-xl p-4'>
       <h1 className='mb-4 text-lg text-gray-600'>Preview</h1>
       <div className='py-8 flex items-start justify-center space-x-8 border border-gray-200 rounded-[6px]'>
-        {mode === 'image' && (
-          <div>
-            <p className='text-sm text-slate-600'>Uploaded Image</p>
-            <Image
-              src={inputImg}
-              alt='Uploaded'
-              className='shadow-md w-[110px] h-[100px]'
-              width={110}
-              height={100}
-            />
-          </div>
-        )}
-
         <div>
           <p className='text-sm text-slate-600'>Browser Tab View</p>
           {favIconTabViewContainer}
