@@ -14,5 +14,13 @@ export const apiServices = createApi({
   }),
 
   //@ts-ignore
-  endpoints: () => ({}),
+  endpoints: (builders) => ({
+    getServerHealth: builders.query<void, void>({
+      query: () => ({
+        url: '/api/health',
+      }),
+    }),
+  }),
 })
+
+export const { useGetServerHealthQuery } = apiServices

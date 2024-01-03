@@ -1,9 +1,15 @@
+'use client'
+
 import Button from '@/components/button'
 import toolsFeatures from '@/data/toolsFeatures'
+import { useGetServerHealthQuery } from '@/redux/services/api'
 import ImageSelection from '@/sections/home/ImageSelection'
 import Link from 'next/link'
 
 export default function Home() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data } = useGetServerHealthQuery()
+
   return (
     <main className='flex min-h-[80vh] flex-col items-center justify-between p-16 relative'>
       <div className='w-full max-w-[1290px] pt-[20px] mx-auto text-center relative'>
