@@ -13,7 +13,7 @@ interface IProps {
 
 const Preview: FC<IProps> = ({ inputImg, favIconCanvas, mode }) => {
   const favIconTabViewContainer = (
-    <div className='mt-1 bg-[#1E1E2A] h-[108px] w-[380px] max-w-[380px] pt-[8px] rounded-t-[4px] overflow-hidden'>
+    <div className='mt-1 bg-[#1E1E2A] shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] h-[151px] w-[380px] max-w-[380px] pt-[8px] rounded-t-[4px] overflow-hidden'>
       <div className='flex items-center h-[48px] bg-inherit relative'>
         <div className='w-[11px] min-w-[11px] bg-inherit absolute bottom-0 left-0 h-[43px] border-r-2 border-b-2 border-[#626262] rounded-br-[5px]' />
 
@@ -45,7 +45,7 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas, mode }) => {
   )
 
   return (
-    <div>
+    <div className='bg-gray-200 rounded-xl p-4'>
       <h1 className='mb-4 text-lg text-gray-600'>Preview</h1>
       <div className='py-8 flex items-start justify-center space-x-8 border border-gray-200 rounded-[6px]'>
         {mode === 'image' && (
@@ -68,7 +68,7 @@ const Preview: FC<IProps> = ({ inputImg, favIconCanvas, mode }) => {
 
         <div>
           <p className='text-sm text-slate-600'>Google Result Page View</p>
-          <div className='mt-1 bg-white min-h-[108px] min-w-[420px] max-w-[420px] p-8 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]'>
+          <div className='mt-1 rounded-t-[4px] bg-white min-h-[108px] min-w-[420px] max-w-[420px] p-8 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]'>
             <div className='flex items-center space-x-4 h-[30px]'>
               {favIconCanvas}
               <div>

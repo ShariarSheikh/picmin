@@ -95,15 +95,27 @@ export default function FromText() {
   }
 
   const addFontFace = (fontFamily: string, url: string) => {
-    const styleElement = document.createElement('style')
-    styleElement.textContent = `
-         @font-face {
-           font-family: '${fontFamily}';
-           src: url(${url}) format('truetype');
-         }
-       `
+    const styleContent = `
+    @font-face {
+      font-family: '${fontFamily}';
+      src: url(${url}) format('truetype');
+    }
+  `
+    // Check if any style element with @font-face rules exists
+    const styleTag = document.getElementById('styleTagForFontFace')
 
-    document.head.appendChild(styleElement)
+    if (styleTag) {
+      while (styleTag.firstChild) {
+        styleTag.removeChild(styleTag.firstChild)
+      }
+
+      styleTag.textContent = styleContent
+    } else {
+      const styleElement = document.createElement('style')
+      styleElement.id = 'styleTagForFontFace'
+      styleElement.textContent = styleContent
+      document.head.appendChild(styleElement)
+    }
   }
 
   const getFontStyle = () => ({

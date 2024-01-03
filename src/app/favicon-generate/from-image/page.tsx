@@ -92,7 +92,7 @@ export default function FromImage() {
   }
 
   const customizeOptions = (
-    <div className='w-full'>
+    <div className='w-full mt-3'>
       <Switch
         checked={options.isCustom}
         onClick={() => handleOptionChange('isCustom', !options.isCustom)}

@@ -12,37 +12,41 @@ import {
   NavbarItem,
 } from '@nextui-org/react'
 import Link from 'next/link'
-// import { useSelectedLayoutSegment } from 'next/navigation'
+import { TbWorldWww } from 'react-icons/tb'
+
 import { FC } from 'react'
 import { CiImageOn } from 'react-icons/ci'
 import { IoText } from 'react-icons/io5'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
 const Header: FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const segment = useSelectedLayoutSegment()
-
   return (
     <Navbar
-      isBordered
-      maxWidth='xl'
-      className='z-[1110] bg-[#FAFAFA] w-full sticky top-0'
+      maxWidth='lg'
+      classNames={{
+        wrapper: 'rounded-lg bg-[#4b53ff]',
+      }}
+      className='z-[1110] w-full sticky top-0 pt-6'
     >
       <NavbarContent className='items-center' justify='start'>
         <NavbarBrand className='max-w-[75px] w-full'>
           <Link href='/'>
-            <h1 className='font-bold text-primary text-2xl'>PicMin</h1>
+            <h1 className='font-bold text-white text-2xl'>PicMin</h1>
           </Link>
         </NavbarBrand>
+      </NavbarContent>
+
+      <NavbarContent className='items-center text-white' justify='center'>
         <Dropdown showArrow radius='sm'>
           <NavbarItem>
             <DropdownTrigger>
               <Button
                 disableRipple
-                className='bg-transparent data-[hover=true]:bg-transparent text-base font-semibold rounded-[6px] hover:bg-gray-50 hover:text-primary px-3 py-3'
+                className='text-white bg-transparent data-[hover=true]:bg-transparent text-base font-semibold rounded-[6px] px-3 py-3'
                 endContent={<MdKeyboardArrowDown />}
+                startContent={<TbWorldWww className='text-gray-100' />}
                 radius='sm'
-                variant='light'
+                // variant='light'
               >
                 Favicon
               </Button>
@@ -80,7 +84,6 @@ const Header: FC = () => {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-
         <NavbarItem>
           <Link
             className='text-base font-semibold rounded-[6px] hover:bg-gray-100 hover:text-primary px-3 py-3'
@@ -102,14 +105,10 @@ const Header: FC = () => {
 
       <NavbarContent className='items-center' justify='end'>
         <NavbarItem>
-          <Button color='primary' variant='flat'>
+          <Button className='text-white' variant='flat'>
             Tutorial
           </Button>
         </NavbarItem>
-
-        {/* <Button className='text-black bg-[#ffd700] px-3 py-1 border border-primary rounded-sm hover:bg-white hover:text-primary duration-150'>
-          Tutorial
-        </Button> */}
       </NavbarContent>
     </Navbar>
   )
