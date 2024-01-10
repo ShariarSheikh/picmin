@@ -1,4 +1,3 @@
-import { EditToolType } from '@/app/edit/page'
 import { AiOutlineGlobal } from 'react-icons/ai'
 import { FaExchangeAlt } from 'react-icons/fa'
 import { GiSmallFire } from 'react-icons/gi'
@@ -8,7 +7,7 @@ interface FeaturesTypes {
   title: string
   description: string
   Icon: JSX.Element
-  query: EditToolType
+  query: string
 }
 
 export default [

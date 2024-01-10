@@ -4368,6 +4368,11 @@ react-icons@^4.12.0:
   resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.12.0.tgz"
   integrity sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==
 
+react-image-crop@^11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-11.0.4.tgz#044a34467fd52fde5cb03907cfb156e131cc798d"
+  integrity sha512-FO6N0oJIs+T/kw9wHZ1sjLYURUBv7BOKamjwkiQ0lI4D2Vp5OZFDNhrSJW41K0V9oCsbHtEymbOT/8eF28OOhg==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"

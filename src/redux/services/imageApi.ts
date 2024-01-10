@@ -13,15 +13,26 @@ export const imageApi = apiServices.injectEndpoints({
       }),
     }),
 
-    // remove bg post request
-    imgBgRemove: builders.mutation<{ file: string }, { imgData: FormData }>({
+    compressImage: builders.mutation<
+      { data: { image: string } },
+      { imgData: FormData }
+    >({
       query: (credential) => ({
-        url: '/api/image/remove_background',
+        url: '/api/img/compress',
         method: 'POST',
         body: credential.imgData,
       }),
     }),
+
+    // remove bg post request
+    // imgBgRemove: builders.mutation<{ file: string }, { imgData: FormData }>({
+    //   query: (credential) => ({
+    //     url: '/api/image/remove_background',
+    //     method: 'POST',
+    //     body: credential.imgData,
+    //   }),
+    // }),
   }),
 })
 
-export const { useImgBgRemoveMutation, useGenerateFaviconMutation } = imageApi
+export const { useCompressImageMutation, useGenerateFaviconMutation } = imageApi

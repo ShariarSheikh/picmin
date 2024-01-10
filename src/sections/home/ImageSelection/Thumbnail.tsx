@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 const Thumbnail: FC = () => {
   return (
-    <div className='w-full h-full pt-10'>
+    <div className='w-full h-full pt-10 flex flex-col items-center justify-center'>
       <Button className='rounded-full bg-primary font-semibold text-white px-10 py-4 mb-5'>
         Upload File
       </Button>

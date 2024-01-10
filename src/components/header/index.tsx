@@ -24,9 +24,9 @@ const Header: FC = () => {
     <Navbar
       maxWidth='lg'
       classNames={{
-        wrapper: 'rounded-lg bg-[#4b53ff]',
+        wrapper: 'rounded-lg bg-primary',
       }}
-      className='z-[1110] w-full sticky top-0 pt-6'
+      className='z-[1110] w-full sticky top-0 py-6 bg-transparent'
     >
       <NavbarContent className='items-center' justify='start'>
         <NavbarBrand className='max-w-[75px] w-full'>
@@ -86,7 +86,7 @@ const Header: FC = () => {
         </Dropdown>
         <NavbarItem>
           <Link
-            className='text-base font-semibold rounded-[6px] hover:bg-gray-100 hover:text-primary px-3 py-3'
+            className='text-base font-semibold rounded-[6px] hover:bg-[#4b53ff] hover:text-white px-3 py-3'
             href='/img-crop'
             aria-current='page'
           >
@@ -95,7 +95,7 @@ const Header: FC = () => {
         </NavbarItem>
         <NavbarItem>
           <Link
-            className='text-base font-semibold rounded-[6px] hover:bg-gray-100 hover:text-primary px-3 py-3'
+            className='text-base font-semibold rounded-[6px] hover:bg-[#4b53ff] hover:text-white px-3 py-3'
             href='/img-compress'
           >
             Image Compress

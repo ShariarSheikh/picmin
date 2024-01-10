@@ -1,7 +1,7 @@
 'use client'
 
 import base64ToImageFile from '@/app/utils/base64ToImageFile'
-import ImageInputButton from '@/components/ImageInputButton'
+import ImageUpload from '@/components/ImageUpload'
 import Button from '@/components/button'
 import { useGenerateFaviconMutation } from '@/redux/services/imageApi'
 import { Slider, Switch, cn } from '@nextui-org/react'
@@ -9,9 +9,9 @@ import * as htmlToImage from 'html-to-image'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { TwitterPicker } from 'react-color'
+import Features from '../Features'
 import Preview from '../Preview'
 import Result from '../Result'
-import Features from '../Features'
 
 //----------------------------------------------
 export interface CustomOptionsType {
@@ -235,9 +235,9 @@ export default function FromImage() {
         )}
 
         {!imageInput && (
-          <div className='bg-gray-200 w-full min-h-[300px] flex justify-center items-center'>
-            <ImageInputButton image='' setImage={setImageInput} />
-          </div>
+          <ImageUpload
+            getFileInfo={({ imgString }) => setImageInput(imgString)}
+          />
         )}
       </div>
 
