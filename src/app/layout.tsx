@@ -50,6 +50,11 @@ export default function RootLayout({
           href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap'
           crossOrigin='anonymous'
         />
+
+        <link
+          rel='stylesheet'
+          href='https://video-react.github.io/assets/video-react.css'
+        />
         <meta
           httpEquiv='Content-Security-Policy'
           content='upgrade-insecure-requests'

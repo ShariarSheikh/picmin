@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import editToolSlice from './features/editToolSlice'
+import headerButtonsSlice from './features/headerButtonsSlice'
 import imgSlice from './features/imgSlice'
 import { apiServices } from './services/api'
 // ...
@@ -8,6 +9,7 @@ export const store = configureStore({
   reducer: {
     imgSlice: imgSlice,
     editToolSlice: editToolSlice,
+    headerButtonsSlice: headerButtonsSlice,
 
     //api
     [apiServices.reducerPath]: apiServices.reducer,

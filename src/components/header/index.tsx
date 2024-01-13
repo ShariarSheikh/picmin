@@ -14,12 +14,15 @@ import {
 import Link from 'next/link'
 import { TbWorldWww } from 'react-icons/tb'
 
+import { toggleTutorialButton } from '@/redux/features/headerButtonsSlice'
 import { FC } from 'react'
 import { CiImageOn } from 'react-icons/ci'
 import { IoText } from 'react-icons/io5'
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { useDispatch } from 'react-redux'
 
 const Header: FC = () => {
+  const dispatch = useDispatch()
   return (
     <Navbar
       maxWidth='lg'
@@ -105,7 +108,11 @@ const Header: FC = () => {
 
       <NavbarContent className='items-center' justify='end'>
         <NavbarItem>
-          <Button className='text-white' variant='flat'>
+          <Button
+            onClick={() => dispatch(toggleTutorialButton())}
+            className='text-white'
+            variant='flat'
+          >
             Tutorial
           </Button>
         </NavbarItem>

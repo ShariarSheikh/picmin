@@ -12,108 +12,72 @@ import {
   useDisclosure,
 } from '@nextui-org/react'
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
+import { Cropper, CropperRef } from 'react-advanced-cropper'
+import 'react-advanced-cropper/dist/style.css'
 import { BsAspectRatio } from 'react-icons/bs'
 import { IoCheckmarkDoneCircle } from 'react-icons/io5'
-import ReactCrop, {
-  Crop,
-  PixelCrop,
-  convertToPixelCrop,
-} from 'react-image-crop'
-import 'react-image-crop/dist/ReactCrop.css'
-
-import { canvasPreview } from './canvasPreview'
-import { useDebounceEffect } from './useDebounceEffect'
-import CanvasToImageString, { centerAspectCrop } from './utils'
+import { useDebouncedCallback } from 'use-debounce'
 
 //----------------------------------------------
 
 export default function ImgCrop() {
   const [imageInput, setImageInput] = useState<string>('')
   const [cropImage, setCropImage] = useState<string>('')
-  const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
-  const [crop, setCrop] = useState<Crop>()
-  const [scale, setScale] = useState<number>(1)
-  const [rotate, setRotate] = useState<number>(0)
-  const [aspect, setAspect] = useState<number | undefined>(16 / 9)
+  const [coordinates, setCoordinates] = useState({
+    height: 0,
+    width: 0,
+    top: 0,
+    left: 0,
+  })
+  const [isAspect, setIsAspect] = useState<boolean>(false)
+  const [cropper, setCropper] = useState<CropperRef>()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null)
-  const imgRef = useRef<HTMLImageElement>(null)
+  const cropperRef = useRef<CropperRef>(null)
 
-  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
-    if (aspect) {
-      const { width, height } = e.currentTarget
-      setCrop(centerAspectCrop(width, height, aspect))
-    }
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setCoordinates({
+      ...coordinates,
+      [name]: parseInt(value, 10),
+    })
+
+    if (!cropperRef?.current) return
+
+    cropperRef.current.setCoordinates({
+      [name]: value,
+    })
   }
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target
-  //   setCropInputs({
-  //     ...cropInputs,
-  //     [name]: parseInt(value, 10),
-  //   })
-  // }
-
-  useDebounceEffect(
-    async () => {
-      if (
-        completedCrop?.width &&
-        completedCrop?.height &&
-        imgRef.current &&
-        previewCanvasRef.current
-      ) {
-        // We use canvasPreview as it's much faster than imgPreview.
-        canvasPreview(
-          imgRef.current,
-          previewCanvasRef.current,
-          completedCrop,
-          scale,
-          rotate,
-        )
-      }
-    },
-    100,
-    [completedCrop, scale, rotate],
-  )
-
-  function handleToggleAspectClick() {
-    if (aspect) {
-      setAspect(undefined)
-    } else {
-      setAspect(16 / 9)
-
-      if (imgRef.current) {
-        const { width, height } = imgRef.current
-        const newCrop = centerAspectCrop(width, height, 16 / 9)
-        setCrop(newCrop)
-        // Updates the preview
-        setCompletedCrop(convertToPixelCrop(newCrop, width, height))
-      }
-    }
+  const handleToggleAspectClick = () => {
+    setIsAspect(!isAspect)
+    setCoordinates(cropper?.getCoordinates() as typeof coordinates)
+  }
+  const removeImgStateHandler = () => {
+    setImageInput('')
+    cropperRef?.current?.reset()
   }
 
   const doneCropHandler = async () => {
-    const imgString = await CanvasToImageString({
-      imgRef,
-      previewCanvasRef,
-      completedCrop,
-    })
-    // console.log(imgString)
-    setCropImage(imgString)
+    setCropImage(cropper?.getCanvas()?.toDataURL() ?? '')
     onOpen()
   }
 
   const downloadHandler = () => {
     const link = document.createElement('a')
     link.href = cropImage
-
     link.setAttribute('download', 'crop_image.png')
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
   }
+
+  const onChange = useDebouncedCallback((cropper: CropperRef) => {
+    setCropper(cropper)
+    setCropImage(cropper?.getCanvas()?.toDataURL() || '')
+    setCoordinates(cropper.getCoordinates() as typeof coordinates)
+  }, 500)
 
   return (
     <main className='w-full bg-white pb-10'>
@@ -143,42 +107,37 @@ export default function ImgCrop() {
           }}
           className='w-full rounded-[10px] p-6 bg-gray-200'
         >
-          <h1 className='text-2xl font-semibold text-gray-600 mb-6'>
-            Crop Image
-          </h1>
+          <div className='flex items-center justify-between mb-6'>
+            <h1 className='text-2xl font-semibold text-gray-600'>Crop Image</h1>
+
+            <Button
+              color='danger'
+              onClick={removeImgStateHandler}
+              variant='flat'
+              size='sm'
+            >
+              Close
+            </Button>
+          </div>
+
           <div className='w-full flex justify-between'>
             <div className='w-[65%] h-[560px] relative rounded-[10px] overflow-hidden'>
-              <ReactCrop
-                crop={crop}
-                onChange={(_, percentCrop) => setCrop(percentCrop)}
-                onComplete={(c) => setCompletedCrop(c)}
-                aspect={aspect}
-                minHeight={100}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element  */}
-                <img
-                  ref={imgRef}
-                  alt='Crop me'
-                  src={imageInput}
-                  style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-                  onLoad={onImageLoad}
-                />
-              </ReactCrop>
+              <Cropper
+                ref={cropperRef}
+                src={imageInput}
+                stencilProps={isAspect ? { aspectRatio: 1 / 2 } : undefined}
+                onChange={onChange}
+                className={'cropper'}
+              />
             </div>
             <div className='w-[30%] p-6 bg-white rounded-[10px]'>
-              <div className='min-w-[200px] overflow-hidden'>
-                {!!completedCrop && (
-                  <canvas
-                    className='w-full h-full'
-                    ref={previewCanvasRef}
-                    style={{
-                      // border: '1px solid black',
-                      objectFit: 'contain',
-                      // width: completedCrop.width,
-                      // height: completedCrop.height,
-                    }}
-                  />
-                )}
+              <div className='relative w-[200px] h-[200px] overflow-hidden'>
+                <Image
+                  fill
+                  src={cropImage ?? ''}
+                  alt='preview'
+                  className='w-full h-full object-contain'
+                />
               </div>
               <div className='w-full mb-4 mt-8'>
                 <Button
@@ -191,30 +150,48 @@ export default function ImgCrop() {
                   Toggle Aspect
                 </Button>
               </div>
-              <div>
+              <div className='flex space-x-4 items-start mb-4'>
                 <Input
-                  className='h-10 outline-none mb-4 active:border-transparent'
-                  type='number'
-                  min={1}
-                  max={100}
-                  variant='flat'
-                  label='Scale'
-                  value={scale.toString()}
-                  onChange={(e) => {
-                    setScale(Number(e.target.value))
-                  }}
-                />
-                <Input
-                  className='h-10 outline-none mb-4 active:border-transparent'
+                  className='h-10 outline-none active:border-transparent'
                   type='number'
                   min={0}
-                  max={360}
-                  variant='flat'
-                  label='Rotate'
-                  value={rotate.toString()}
-                  onChange={(e) => {
-                    setRotate(Number(e.target.value))
-                  }}
+                  variant='underlined'
+                  label='Height'
+                  name='height'
+                  value={coordinates?.height?.toString()}
+                  onChange={handleInputChange}
+                />
+                <Input
+                  className='h-10 outline-none active:border-transparent'
+                  type='number'
+                  min={0}
+                  variant='underlined'
+                  label='Width'
+                  name='width'
+                  value={coordinates?.width?.toString()}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className='flex space-x-4 items-start mb-4'>
+                <Input
+                  className='h-10 outline-none active:border-transparent'
+                  type='number'
+                  min={0}
+                  variant='underlined'
+                  label='Position X'
+                  name='left'
+                  value={coordinates?.left?.toString()}
+                  onChange={handleInputChange}
+                />
+                <Input
+                  className='h-10 outline-none active:border-transparent'
+                  type='number'
+                  min={0}
+                  variant='underlined'
+                  label='Position Y'
+                  name='top'
+                  value={coordinates?.top?.toString()}
+                  onChange={handleInputChange}
                 />
               </div>
 
