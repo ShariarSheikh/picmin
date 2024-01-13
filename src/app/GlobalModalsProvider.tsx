@@ -1,13 +1,6 @@
 import { toggleTutorialButton } from '@/redux/features/headerButtonsSlice'
 import { useAppSelector } from '@/redux/hooks'
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  useDisclosure,
-} from '@nextui-org/react'
-import { useEffect } from 'react'
+import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react'
 import { useDispatch } from 'react-redux'
 import { Player } from 'video-react'
 
@@ -26,20 +19,14 @@ const GlobalModalsProvider = () => {
 export default GlobalModalsProvider
 
 const TutorialModal = ({ isOpenModal }: { isOpenModal: boolean }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (isOpenModal) return onOpen()
-    else {
-      onClose()
-      dispatch(toggleTutorialButton())
-    }
-  }, [isOpenModal])
-
   return (
-    <Modal size='xl' isOpen={isOpen} onClose={onClose}>
+    <Modal
+      size='xl'
+      isOpen={isOpenModal}
+      onClose={() => dispatch(toggleTutorialButton())}
+    >
       <ModalContent>
         {
           <>
