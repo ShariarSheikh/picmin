@@ -73,6 +73,56 @@ export default function ImgCrop() {
     document.body.removeChild(link)
   }
 
+  // const downloadHandler = async () => {
+  //   const canvas = document.createElement('canvas')
+  //   const ctx = canvas.getContext('2d')
+
+  //   const originalImage = new window.Image() // Alias the HTML Image constructor
+
+  //   // Set the canvas dimensions to the cropped size
+  //   canvas.width = coordinates.width
+  //   canvas.height = coordinates.height
+
+  //   // Set the original image source
+  //   originalImage.src = cropImage
+  //   console.log(cropper?.getImage())
+
+  //   // Wait for the image to load before drawing on the canvas
+  //   originalImage.onload = function () {
+  //     ctx.drawImage(
+  //       originalImage,
+  //       0,
+  //       0,
+  //       originalImage.width,
+  //       originalImage.height,
+  //     )
+
+  //     // Draw the cropped portion onto the canvas
+  //     ctx.drawImage(
+  //       canvas,
+  //       coordinates.left,
+  //       coordinates.top,
+  //       coordinates.width,
+  //       coordinates.height,
+  //       0,
+  //       0,
+  //       coordinates.width,
+  //       coordinates.height,
+  //     )
+  //   }
+
+  //   // Convert the canvas content to a data URL with compression options
+  //   const croppedDataURL = canvas.toDataURL('image/jpg', 1) // Adjust quality as needed
+
+  //   // Create a link and trigger the download
+  //   const link = document.createElement('a')
+  //   link.href = croppedDataURL
+  //   link.setAttribute('download', 'crop_image.jpg') // Use appropriate file extension
+  //   document.body.appendChild(link)
+  //   link.click()
+  //   document.body.removeChild(link)
+  // }
+
   const onChange = useDebouncedCallback((cropper: CropperRef) => {
     setCropper(cropper)
     setCropImage(cropper?.getCanvas()?.toDataURL() || '')

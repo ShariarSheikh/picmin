@@ -4,6 +4,8 @@ import compress from '@/assets/compress.svg'
 import crop from '@/assets/crop.svg'
 import img_to_favicon from '@/assets/image-to-favicon.jpg'
 import text_to_favicon from '@/assets/text-to-favicon.jpg'
+import { toggleTutorialButton } from '@/redux/features/headerButtonsSlice'
+import { useAppDispatch } from '@/redux/hooks'
 import { useGetServerHealthQuery } from '@/redux/services/api'
 import { Card, CardHeader, Image } from '@nextui-org/react'
 import Link from 'next/link'
@@ -11,6 +13,7 @@ import Link from 'next/link'
 export default function Home() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = useGetServerHealthQuery()
+  const dispatch = useAppDispatch()
 
   return (
     <main className='flex min-h-[80vh] flex-col items-center justify-between p-16 relative'>
@@ -22,7 +25,12 @@ export default function Home() {
           <p className='w-full max-w-[580px] text-sm mx-auto mt-1 text-gray-700 mb-12'>
             Explore the Future of Work with Picmin: Unleashing Rapid
             Productivity Through Images.{' '}
-            <b className='text-primary cursor-pointer'>Tutorial.</b>
+            <b
+              onClick={() => dispatch(toggleTutorialButton())}
+              className='text-primary cursor-pointer'
+            >
+              Tutorial.
+            </b>
           </p>
           <div className='grid grid-cols-4 gap-6 w-full mb-10 max-w-[1024px] mx-auto'>
             <Link href='/favicon-generate/from-image'>
