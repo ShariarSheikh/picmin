@@ -30,17 +30,14 @@ const Footer: FC = () => {
             </li>
 
             <li>
-              <Link
-                href='/favicon-generate/img-crop'
-                className='hover:underline me-4 md:me-6'
-              >
+              <Link href='/img-crop' className='hover:underline me-4 md:me-6'>
                 Crop Image
               </Link>
             </li>
 
             <li>
               <Link
-                href='/favicon-generate/img-compress'
+                href='/img-compress'
                 className='hover:underline me-4 md:me-6'
               >
                 Compress Image
