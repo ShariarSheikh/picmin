@@ -6,22 +6,27 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
 } from '@nextui-org/react'
-import Link from 'next/link'
 import { TbWorldWww } from 'react-icons/tb'
 
 import { toggleTutorialButton } from '@/redux/features/headerButtonsSlice'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { CiImageOn } from 'react-icons/ci'
 import { IoText } from 'react-icons/io5'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { useDispatch } from 'react-redux'
 
 const Header: FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+
   const dispatch = useDispatch()
   return (
     <Navbar
@@ -29,7 +34,8 @@ const Header: FC = () => {
       classNames={{
         wrapper: 'rounded-lg bg-primary',
       }}
-      className='z-[1110] w-full sticky top-0 py-6 bg-transparent'
+      className='z-[1110] w-full sticky px-4 top-0 py-4 lg:py-6 bg-transparent'
+      onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent className='items-center' justify='start'>
         <NavbarBrand className='max-w-[75px] w-full'>
@@ -40,8 +46,8 @@ const Header: FC = () => {
       </NavbarContent>
 
       <NavbarContent className='items-center text-white' justify='center'>
-        <Dropdown showArrow radius='sm'>
-          <NavbarItem>
+        <Dropdown showArrow radius='sm' className='hidden sm:block'>
+          <NavbarItem className='hidden sm:block'>
             <DropdownTrigger>
               <Button
                 disableRipple
@@ -87,18 +93,18 @@ const Header: FC = () => {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <NavbarItem>
+        <NavbarItem className='hidden sm:block'>
           <Link
-            className='text-base font-semibold rounded-[6px] hover:bg-[#4b53ff] hover:text-white px-3 py-3'
+            className='text-base text-white font-semibold rounded-[6px] hover:bg-[#4b53ff] hover:text-white px-3 py-3'
             href='/img-crop'
             aria-current='page'
           >
             Image Crop
           </Link>
         </NavbarItem>
-        <NavbarItem>
+        <NavbarItem className='hidden sm:block'>
           <Link
-            className='text-base font-semibold rounded-[6px] hover:bg-[#4b53ff] hover:text-white px-3 py-3'
+            className='text-base text-white font-semibold rounded-[6px] hover:bg-[#4b53ff] hover:text-white px-3 py-3'
             href='/img-compress'
           >
             Image Compress
@@ -106,17 +112,67 @@ const Header: FC = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className='items-center' justify='end'>
-        <NavbarItem>
-          <Button
-            onClick={() => dispatch(toggleTutorialButton())}
-            className='text-white'
-            variant='flat'
-          >
-            Tutorial
-          </Button>
-        </NavbarItem>
+      <NavbarContent className='hidden sm:block' justify='end'>
+        <div className='flex items-center justify-end h-full'>
+          <NavbarItem>
+            <Button
+              onClick={() => dispatch(toggleTutorialButton())}
+              className='text-white'
+              variant='flat'
+            >
+              Tutorial
+            </Button>
+          </NavbarItem>
+        </div>
       </NavbarContent>
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+        className='sm:hidden text-white'
+      />
+
+      <NavbarMenu>
+        <NavbarMenuItem>
+          <Link className='w-full font-semibold text-xl' href='/' size='lg'>
+            Home
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link
+            className='w-full font-semibold text-xl'
+            href='/favicon-generate/from-image'
+            size='lg'
+          >
+            Image To Favicon
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link
+            className='w-full font-semibold text-xl'
+            href='/favicon-generate/from-text'
+            size='lg'
+          >
+            Text To Favicon
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link
+            className='w-full font-semibold text-xl'
+            href='/img-crop'
+            size='lg'
+          >
+            Crop Image
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link
+            className='w-full font-semibold text-xl'
+            href='/img-compress'
+            size='lg'
+          >
+            Compress Image
+          </Link>
+        </NavbarMenuItem>
+      </NavbarMenu>
     </Navbar>
   )
 }
