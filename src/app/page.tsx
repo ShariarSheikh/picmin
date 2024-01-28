@@ -16,10 +16,10 @@ export default function Home() {
   const dispatch = useAppDispatch()
 
   return (
-    <main className='flex min-h-[80vh] flex-col items-center justify-between p-16 relative'>
+    <main className='flex lg:min-h-[80vh] flex-col items-center justify-between p-4 lg:p-16 relative'>
       <div className='w-full max-w-[1290px] pt-[20px] mx-auto text-center relative'>
         <div className='w-full h-full bg-transparent z-[10]'>
-          <h1 className='text-[3vw] font-semibold static leading-[7.8vw] text-center text-gray-800'>
+          <h1 className='md:text-[3vw] text-[8vw] font-semibold static leading-[7.8vw] text-center text-gray-800'>
             Turbocharge Your Productivity in Seconds
           </h1>
           <p className='w-full max-w-[580px] text-sm mx-auto mt-1 text-gray-700 mb-12'>
@@ -32,9 +32,9 @@ export default function Home() {
               Tutorial.
             </b>
           </p>
-          <div className='grid grid-cols-4 gap-6 w-full mb-10 max-w-[1024px] mx-auto'>
+          <div className='grid grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-10 max-w-[1024px] mx-auto'>
             <Link href='/favicon-generate/from-image'>
-              <Card className='h-[300px] cursor-pointer bg-white group'>
+              <Card className='h-[125px] md:h-[200px] lg:h-[300px] cursor-pointer bg-white group'>
                 <CardHeader className='absolute z-10 top-1 flex-col !items-start'>
                   <p className='text-tiny text-white/60 uppercase font-bold'>
                     Favicon
@@ -53,7 +53,7 @@ export default function Home() {
             </Link>
 
             <Link href='/favicon-generate/from-text'>
-              <Card className='h-[300px] cursor-pointer bg-white group'>
+              <Card className='h-[125px] md:h-[200px] lg:h-[300px] cursor-pointer bg-white group'>
                 <CardHeader className='absolute z-10 top-1 flex-col !items-start'>
                   <p className='text-tiny text-white/60 uppercase font-bold'>
                     Favicon
@@ -72,7 +72,7 @@ export default function Home() {
             </Link>
 
             <Link href='/img-crop'>
-              <Card className='h-[300px] cursor-pointer bg-white group'>
+              <Card className='h-[125px] md:h-[200px] lg:h-[300px] cursor-pointer bg-white group'>
                 <CardHeader className='absolute z-10 top-1 flex-col !items-start'>
                   <p className='text-tiny text-white/60 uppercase font-bold'>
                     Crop
@@ -91,7 +91,7 @@ export default function Home() {
             </Link>
 
             <Link href='/img-compress'>
-              <Card className='h-[300px] cursor-pointer bg-white group'>
+              <Card className='h-[125px] md:h-[200px] lg:h-[300px] cursor-pointer bg-white group'>
                 <CardHeader className='absolute z-10 top-1 flex-col !items-start'>
                   <p className='text-tiny text-white/60 uppercase font-bold'>
                     Compress
