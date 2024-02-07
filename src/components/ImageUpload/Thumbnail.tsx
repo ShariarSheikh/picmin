@@ -7,11 +7,11 @@ import { FC } from 'react'
 
 const Thumbnail: FC = () => {
   return (
-    <div className='w-full h-full pt-10 relative flex flex-col items-center justify-center'>
+    <div className='w-full h-full pt-0 lg:pt-10 relative flex flex-col items-center justify-center'>
       <Button className='rounded-full bg-primary font-semibold text-white px-10 py-4 mb-5'>
         Upload File
       </Button>
-      <p className='text-lg font-bold mb-1'>
+      <p className='text-lg font-bold mb-1 text-center'>
         Drag And drop an image here, or click to upload a file
       </p>
       <p className='text-sm text-slate-500'>
@@ -27,14 +27,14 @@ const Thumbnail: FC = () => {
           style={{
             top: '18vh',
           }}
-          className='object-cover absolute left-12'
+          className='object-cover hidden lg:block absolute left-12'
         />
         <Image
           src={iconPng2}
           width={50}
           height={50}
           alt='icon'
-          className='object-cover absolute -top-4 left-[48%]'
+          className='object-cover hidden lg:block absolute -top-4 left-[48%]'
         />
         <Image
           src={iconPng3}
@@ -44,7 +44,7 @@ const Thumbnail: FC = () => {
           style={{
             top: '18vh',
           }}
-          className='object-cover absolute right-12'
+          className='object-cover hidden lg:block absolute right-12'
         />
       </div>
     </div>

@@ -38,7 +38,8 @@ const Result: FC<IProps> = ({ htmlLinks, zipFileBase64 }) => {
   }, [htmlLinks, zipFileBase64])
   return (
     <div className='min-h-[600px] flex flex-col justify-between w-full py-5'>
-      <div className='pt-5'>
+      <div className='lg:pt-5'>
+        <h1 className='text-2xl mb-3 font-semibold'>Your favicon is ready!</h1>
         <p className='text-[#6e6e78] mb-1 text-sm'>
           Copy and paste the following code into the &lt;head&gt; section of
           your HTML document to include various link and meta tags for favicon
@@ -47,7 +48,7 @@ const Result: FC<IProps> = ({ htmlLinks, zipFileBase64 }) => {
         <CopyHtml links={htmlLinks} />
       </div>
 
-      <div className='w-full flex items-center justify-center'>
+      <div className='w-full flex items-center justify-center mt-4'>
         <FaFileZipper className='w-[100px] h-[120px] text-gray-600' />
       </div>
 

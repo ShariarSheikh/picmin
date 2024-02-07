@@ -124,7 +124,7 @@ export default function FromImage() {
         </div>
       </Switch>
 
-      <div className='grid grid-cols-3 items-center gap-5'>
+      <div className='mt-4 lg:mt-0 grid grid-cols-1 lg:grid-cols-3 items-center gap-5'>
         <Slider
           label='Border Radius'
           size='sm'
@@ -202,8 +202,8 @@ export default function FromImage() {
   )
 
   return (
-    <section className='w-full bg-white pb-10'>
-      <div className='w-full bg-white max-w-[870px] mx-auto min-h-[300px] py-3 mb-12'>
+    <section className='w-full bg-white pb-10 px-5 lg:px-5'>
+      <div className='w-full bg-white max-w-[870px] mx-auto min-h-[190px] lg:min-h-[300px] py-3 mt-[30px] lg:mt-0 mb-12'>
         {imageInput && !generateFaviconApi.isSuccess && (
           <div className='pt-10'>
             {devFavIconPrevView}

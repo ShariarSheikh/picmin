@@ -54,7 +54,7 @@ const Features = () => {
         </li>
       </ul>
 
-      <div className='px-2 rounded-sm h-10 bg-primary bg-opacity-40 text-black inline py-2'>
+      <div className='lg:px-2 rounded-sm min-h-[40px] lg:bg-primary bg-opacity-40 text-black inline py-2'>
         Create a distinctive and eye-catching favicon to enhance your
         website&apos;s identity!
       </div>

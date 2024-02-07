@@ -60,7 +60,7 @@ const ImageUpload: FC<PropsImageUpload> = ({ getFileInfo }) => {
   })
 
   return (
-    <div className='relative mb-[3vw] bg-white h-[250px] w-full max-w-5xl mx-auto rounded-[6px] transition-all duration-150'>
+    <div className='relative mb-[3vw] bg-white h-[190px] lg:h-[250px] w-full max-w-5xl mx-auto rounded-[6px] transition-all duration-150'>
       <div className='w-full h-full absolute inset-0 z-30'>
         <div
           style={{ border: '5px dashed #eee' }}
