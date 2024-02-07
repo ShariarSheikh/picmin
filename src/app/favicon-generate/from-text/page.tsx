@@ -132,8 +132,8 @@ export default function FromText() {
   const editContent = (
     <div className='w-full flex items-center justify-center py-12'>
       {/* <!-- Utils Component --> */}
-      <div className='w-full max-w-[768px] mx-auto px-8'>
-        <div className='flex space-x-8'>
+      <div className='w-full max-w-[768px] mx-auto lg:px-8 '>
+        <div className='flex flex-col lg:flex-row lg:space-x-8 mb-5 lg:mb-0'>
           <div className='mb-8'>
             <h1 className='mb-2 text-slate-500'>Font Color</h1>
             <TwitterPicker
@@ -150,7 +150,7 @@ export default function FromText() {
           </div>
         </div>
 
-        <div className='flex w-full space-x-8'>
+        <div className='flex w-full space-x-4 lg:space-x-8'>
           <div
             style={{
               fontSize: 100,
@@ -307,7 +307,7 @@ export default function FromText() {
   }
 
   return (
-    <div className='w-full bg-white min-h-[300px] py-3'>
+    <div className='w-full bg-white min-h-[300px] py-3 px-5'>
       <div className='w-full bg-white max-w-[870px] mx-auto min-h-[300px] pt-10 py-3 mb-12'>
         {!generateFaviconApi.isSuccess && (
           <>
