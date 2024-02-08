@@ -64,7 +64,7 @@ export default function ImgCompress() {
 
   return (
     <main className='w-full bg-white pb-10'>
-      <div className='w-full bg-white max-w-[870px] mx-auto min-h-[300px] py-3 mb-12'>
+      <div className='w-full bg-white max-w-[870px] mx-auto min-h-[300px] px-5 py-3 mb-12'>
         <div
           style={{
             height: imageInput.imgSrc ? 0 : 300,
@@ -95,8 +95,8 @@ export default function ImgCompress() {
           }}
           className='w-full rounded-[10px] p-6 bg-[#F5F5FA]'
         >
-          <div className='flex items-center justify-between'>
-            <h1 className='text-2xl font-semibold text-gray-600 mb-6'>
+          <div className='w-full flex items-center justify-between'>
+            <h1 className='text-lg lg:text-2xl font-semibold text-gray-600 mb-6'>
               Compress Image Size
             </h1>
             <Button
@@ -110,13 +110,13 @@ export default function ImgCompress() {
             </Button>
           </div>
 
-          <div className='flex items-center justify-center space-x-8'>
-            <div className='p-3 rounded-md bg-white'>
+          <div className='flex flex-col lg:flex-row items-center justify-center lg:space-x-8 lg:p-4'>
+            <div className='w-full p-3 rounded-md bg-white'>
               <div className='py-1'>
                 <p className='line-clamp-1'>FileName: {imageInput.fileName}</p>
                 <p>FileSize: {formatFileSize(imageInput.fileSize)}</p>
               </div>
-              <div className='w-[300px] h-[350px] relative'>
+              <div className='w-full lg:w-[300px] min-h-[220px] lg:h-[350px] relative'>
                 <Image fill src={imageInput.imgSrc} alt='input image' />
               </div>
               <p className='text-center mt-2'>Current Image</p>
@@ -124,16 +124,16 @@ export default function ImgCompress() {
 
             <div>
               {imgCompressApi.isSuccess ? (
-                <div className='flex items-center space-x-5'>
+                <div className='w-full p-3 flex flex-col lg:flex-row items-center lg:space-x-5'>
                   <span>VS</span>
-                  <div className='p-3 rounded-md bg-white'>
+                  <div className='w-full max-w-[235px] p-3 rounded-md bg-white'>
                     <div className='py-1'>
                       <p className='line-clamp-1'>
                         FileName: {imageInput.fileName}
                       </p>
                       <p>FileSize: {formatFileSize(compressImgSize)}</p>
                     </div>
-                    <div className='w-[300px] h-[350px] relative'>
+                    <div className='w-full lg:w-[300px] min-h-[220px] lg:h-[350px] relative'>
                       <Image
                         fill
                         src={imgCompressApi.data.data.image}
@@ -149,7 +149,7 @@ export default function ImgCompress() {
                   isLoading={imgCompressApi.isLoading}
                   startContent={<FaFileImage />}
                   color='primary'
-                  className='h-12 w-[300px] text-2xl'
+                  className='h-12 w-full lg:w-[300px] text-2xl mt-6 lg:mt-0'
                 >
                   Compress Image
                 </Button>
