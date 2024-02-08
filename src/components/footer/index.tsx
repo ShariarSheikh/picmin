@@ -4,7 +4,7 @@ import Button from '../button'
 
 const Footer: FC = () => {
   return (
-    <footer className='bg-primary text-white w-full max-w-[1024px] mx-auto rounded-lg mb-4'>
+    <footer className='bg-primary text-white w-full max-w-[1024px] mx-auto rounded-lg lg:mb-4'>
       <div className='w-full max-w-screen-xl mx-auto p-4 md:px-8 md:pt-8 md:pb-4'>
         <div className='flex flex-col items-center justify-center'>
           <Link href='/'>

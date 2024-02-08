@@ -131,14 +131,14 @@ export default function ImgCrop() {
 
   return (
     <main className='w-full bg-white pb-10'>
-      <div className='w-full bg-white max-w-[870px] mx-auto min-h-[300px] py-3 mb-12'>
+      <div className='w-full bg-white max-w-[870px] px-5 mx-auto min-h-[300px] py-3 mb-12'>
         <div
           style={{
             height: imageInput ? 0 : 300,
             overflow: imageInput ? 'hidden' : 'auto',
             opacity: imageInput ? 0 : 100,
           }}
-          className='transition-all duration-500 mt-[70px] w-full'
+          className='transition-all duration-500 mt-[30px] lg:mt-[70px] w-full'
         >
           {!imageInput && (
             <ImageUpload
@@ -170,8 +170,8 @@ export default function ImgCrop() {
             </Button>
           </div>
 
-          <div className='w-full flex justify-between'>
-            <div className='w-[65%] h-[560px] relative rounded-[10px] overflow-hidden'>
+          <div className='w-full flex flex-col lg:flex-row lg:justify-between'>
+            <div className='w-full lg:w-[65%] min-h-[130px] max-h-[255px] lg:max-h-[auto] lg:h-[560px] mb-6 lg:mb-0 relative rounded-[10px]'>
               <Cropper
                 ref={cropperRef}
                 src={imageInput}
@@ -180,7 +180,7 @@ export default function ImgCrop() {
                 className={'cropper'}
               />
             </div>
-            <div className='w-[30%] p-6 bg-white rounded-[10px]'>
+            <div className='w-full lg:w-[30%] p-6 bg-white rounded-[10px]'>
               <div className='relative w-[200px] h-[200px] overflow-hidden'>
                 <Image
                   fill

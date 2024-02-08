@@ -7,11 +7,11 @@ import { FC } from 'react'
 
 const Thumbnail: FC = () => {
   return (
-    <div className='w-full h-full pt-0 lg:pt-10 relative flex flex-col items-center justify-center'>
-      <Button className='rounded-full bg-primary font-semibold text-white px-10 py-4 mb-5'>
+    <div className='w-full h-full text-center pt-0 lg:pt-10 px-[10px] lg:px-0 relative flex flex-col items-center justify-center'>
+      <Button className='rounded-full bg-primary font-semibold text-white px-4 py-2 lg:px-10 lg:py-4 mt-[10px] mb-[2px] lg:mb-5'>
         Upload File
       </Button>
-      <p className='text-lg font-bold mb-1 text-center'>
+      <p className='text-base lg:text-lg font-bold mb-1'>
         Drag And drop an image here, or click to upload a file
       </p>
       <p className='text-sm text-slate-500'>
